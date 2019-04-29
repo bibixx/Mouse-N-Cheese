@@ -7,6 +7,7 @@ let slider;
 let worldSize;
 let input;
 let avgStepsSpan;
+let checkbox;
 
 let seed = Date.now();
 let strat = INITIAL_START;
@@ -99,12 +100,14 @@ function findClosest(mouseX, mouseY) {
   
   while (level < maxLevel) {
     fill(c);
-    rect(
-      rectSize * x,
-      rectSize * y,
-      rectSize,
-      rectSize,
-    );
+    if (checkbox.checked()) {
+      rect(
+        rectSize * x,
+        rectSize * y,
+        rectSize,
+        rectSize,
+      );
+    }
 
     if (
       world[x]
@@ -288,6 +291,7 @@ function setup() {
   worldSize = createInput(String(WORLD_SIZE), 'number');
   worldSize.attribute('min', '4')
   worldSize.attribute('max', '40')
+  checkbox = createCheckbox('DEBUG', false);
 
   cheesePercentage = createInput(String(PERCENT_OF_CHEESE * 100), 'number');
   cheesePercentage.attribute('min', '1')
@@ -319,6 +323,7 @@ function setup() {
   div.child(desc3);
   div.child(cheesePercentage);
   div.child(createSpan('%'));
+  div.child(checkbox);
 
   const clear = () => {
     avgSteps = 0;
